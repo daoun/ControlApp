@@ -1,6 +1,7 @@
 package panasonic.controlapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
             TextView ip_address = (TextView) v.findViewById(R.id.ip_address);
 
             if (hostname != null){
+                Log.d("DeviceAdapter: ", device.getHostname());
+
                 hostname.setText(device.getHostname());
             }
             if (ip_address != null){

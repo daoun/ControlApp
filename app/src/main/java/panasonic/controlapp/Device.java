@@ -30,4 +30,11 @@ public class Device {
     public void setIp(String ip) {
         this.ip = ip;
     }
+
+    @Override
+    public String toString() {
+
+        // hostname: 192.168.0.0
+        return this.hostname + ": " + this.ip;
+    }
 }

@@ -66,12 +66,8 @@ public class MainActivity extends Activity {
 
     private class AsyncTaskRunner extends AsyncTask<String, String, ArrayList<Device>> {
 
-        private String resp;
         ProgressDialog progressDialog;
-        InetAddress inetAddress;
-
-        private final String TAG = "nstask";
-
+        private final String TAG = "MainActivity";
         private WeakReference<Context> mContextRef;
 
         public AsyncTaskRunner(Context context) {
@@ -81,6 +77,26 @@ public class MainActivity extends Activity {
 
         @Override
         protected ArrayList<Device> doInBackground(String... params) {
+
+            ArrayList<Device> list = GetDevices();
+
+
+        /*  ArrayList<Device> list = new ArrayList<>(); //GetDevices();
+
+            Device device1 = new Device("192.168.2.151");
+            device1.setHostname("DaounsiPhone");
+
+
+            Device device2 = new Device("192.168.2.75");
+            device2.setHostname("android-12345");
+
+            list.add(device2);
+            list.add(device1);*/
+
+            return list;
+        }
+
+        private ArrayList<Device> GetDevices() {
 
             ArrayList<Device> list = new ArrayList<>();
 
@@ -125,6 +141,7 @@ public class MainActivity extends Activity {
                         boolean reachable = address.isReachable(1000);
                         String hostName = address.getCanonicalHostName();
 
+
                         if (reachable) {
                             Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
                             Device device = new Device(testIp);
@@ -141,7 +158,6 @@ public class MainActivity extends Activity {
             return list;
         }
 
-
         @Override
         protected void onProgressUpdate(String... text) {
             //finalResult.setText(text[0]);
@@ -152,7 +168,7 @@ public class MainActivity extends Activity {
         protected void onPostExecute(ArrayList<Device> result) {
             // execution of result of Long time consuming operation
             progressDialog.dismiss();
-
+            Log.d(TAG, result.toString());
             ArrayAdapter<Device> listAdapter = new DeviceAdapter(context, R.layout.simple_list_item_1 , result);
             deviceList = result;
             deviceLV.setAdapter(listAdapter);
